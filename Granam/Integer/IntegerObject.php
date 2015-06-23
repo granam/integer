@@ -4,7 +4,7 @@ namespace Granam\Integer;
 use Granam\Integer\Tools\ToInteger;
 use Granam\Scalar\Scalar;
 
-class Integer extends Scalar implements IntegerInterface
+class IntegerObject extends Scalar implements IntegerInterface
 {
 
     /**

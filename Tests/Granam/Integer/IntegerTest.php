@@ -8,7 +8,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
      */
     public function can_create_instance()
     {
-        $instance = new Integer(12345);
+        $instance = new IntegerObject(12345);
         $this->assertNotNull($instance);
 
         return $instance;
@@ -33,9 +33,9 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
      */
     public function gives_same_value_as_created_with()
     {
-        $withInteger = new Integer($integerValue = 123456);
+        $withInteger = new IntegerObject($integerValue = 123456);
         $this->assertSame($integerValue, $withInteger->getValue());
-        $withString = new Integer($stringValue = '123456');
+        $withString = new IntegerObject($stringValue = '123456');
         $this->assertSame(intval($stringValue), $withString->getValue());
     }
 
@@ -46,7 +46,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
      */
     public function can_be_turned_into_string()
     {
-        $integer = new Integer($integerValue = 123456);
+        $integer = new IntegerObject($integerValue = 123456);
         $this->assertSame((string)$integerValue, (string)$integer);
     }
 
@@ -55,7 +55,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
      */
     public function float_without_decimal_can_be_used()
     {
-        $integer = new Integer($floatValue = 1.0);
+        $integer = new IntegerObject($floatValue = 1.0);
         $this->assertSame(1, $integer->getValue());
         $this->assertSame(intval($floatValue), $integer->getValue());
     }
@@ -66,7 +66,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
      */
     public function float_with_decimal_cause_exception()
     {
-        new Integer(1.1);
+        new IntegerObject(1.1);
     }
 
     /**
@@ -74,7 +74,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
      */
     public function false_is_converted_to_zero()
     {
-        $integer = new Integer(false);
+        $integer = new IntegerObject(false);
         $this->assertSame(0, $integer->getValue());
         $this->assertSame(intval(false), $integer->getValue());
     }
@@ -84,7 +84,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
      */
     public function true_is_converted_to_one()
     {
-        $integer = new Integer(true);
+        $integer = new IntegerObject(true);
         $this->assertSame(1, $integer->getValue());
         $this->assertSame(intval(true), $integer->getValue());
     }
@@ -94,7 +94,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
      */
     public function null_is_converted_to_zero()
     {
-        $integer = new Integer(null);
+        $integer = new IntegerObject(null);
         $this->assertSame(0, $integer->getValue());
         $this->assertSame(intval(null), $integer->getValue());
     }
@@ -104,7 +104,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
      */
     public function empty_string_is_converted_to_zero()
     {
-        $integer = new Integer('');
+        $integer = new IntegerObject('');
         $this->assertSame(0, $integer->getValue());
         $this->assertSame(intval(''), $integer->getValue());
     }
@@ -115,7 +115,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
      */
     public function array_cause_exception()
     {
-        new Integer([]);
+        new IntegerObject([]);
     }
 
     /**
@@ -124,7 +124,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
      */
     public function resource_cause_exception()
     {
-        new Integer(tmpfile());
+        new IntegerObject(tmpfile());
     }
 
     /**
@@ -133,7 +133,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
      */
     public function object_cause_exception()
     {
-        new Integer(new \stdClass());
+        new IntegerObject(new \stdClass());
     }
 
     /**
@@ -141,13 +141,13 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
      */
     public function to_string_object_is_converted_to_its_integer_value()
     {
-        $integer = new Integer(new TestWithToString($integerValue = 12345));
+        $integer = new IntegerObject(new TestWithToString($integerValue = 12345));
         $this->assertSame($integerValue, $integer->getValue());
-        $stringInteger = new Integer(new TestWithToString($stringValue = '98765'));
+        $stringInteger = new IntegerObject(new TestWithToString($stringValue = '98765'));
         $this->assertSame(intval($stringValue), $stringInteger->getValue());
-        $floatInteger = new Integer(new TestWithToString($floatValue = 123.0));
+        $floatInteger = new IntegerObject(new TestWithToString($floatValue = 123.0));
         $this->assertSame(intval($floatValue), $floatInteger->getValue());
-        $stringFloatInteger = new Integer(new TestWithToString($stringFloatValue = '987.0'));
+        $stringFloatInteger = new IntegerObject(new TestWithToString($stringFloatValue = '987.0'));
         $this->assertSame(intval($stringFloatValue), $stringFloatInteger->getValue());
     }
 
@@ -156,7 +156,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
      */
     public function to_string_object_without_integer_is_zero()
     {
-        $integer = new Integer(new TestWithToString($string = 'non-integer'));
+        $integer = new IntegerObject(new TestWithToString($string = 'non-integer'));
         $this->assertSame(0, $integer->getValue());
         $this->assertSame(intval($string), $integer->getValue());
     }
@@ -166,10 +166,10 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
      */
     public function wrapping_zeroes_are_stripped_away()
     {
-        $integer = new Integer($withLeadingZeroes = '000123');
+        $integer = new IntegerObject($withLeadingZeroes = '000123');
         $this->assertSame(123, $integer->getValue());
         $this->assertSame(intval($withLeadingZeroes), $integer->getValue());
-        $integer = new Integer($zeroesAround = '00012345.000');
+        $integer = new IntegerObject($zeroesAround = '00012345.000');
         $this->assertSame(12345, $integer->getValue());
         $this->assertSame(intval($zeroesAround), $integer->getValue());
     }
@@ -180,7 +180,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
      */
     public function decimal_value_lost_cause_exception()
     {
-        new Integer(123.456);
+        new IntegerObject(123.456);
     }
 
     /**
@@ -189,7 +189,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
      */
     public function integer_value_lost_cause_exception()
     {
-        new Integer(PHP_INT_MAX . '123');
+        new IntegerObject(PHP_INT_MAX . '123');
     }
 }
 
