@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/jaroslavtyc/granam-integer.svg?branch=master)](https://travis-ci.org/jaroslavtyc/granam-integer)
 
+Note: requires PHP 5.4+
 ```php
 <?php
 use Granam\Integer\Integer;
