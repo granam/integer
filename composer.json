@@ -1,32 +1,35 @@
 {
-    "name": "granam/integer",
-    "license": "MIT",
-    "authors": [
-        {
-          "name": "Jaroslav Týc",
-          "homepage": "http://jaroslavtyc.com",
-          "role": "Original author"
-        }
-    ],
-    "type": "project",
-    "description": "Lightweight integer container with stand-alone converter",
-    "keywords": [
-        "php",
-        "integer",
-        "converter"
-    ],
-    "homepage": "https://github.com/jaroslavtyc/granam-integer",
-    "autoload": {
-        "psr-4": { "Granam\\": "Granam/" }
-    },
-    "require": {
-        "php": ">=5.4",
-      "granam/exception-hierarchy": "dev-master",
-      "granam/strict-object": "dev-master",
-      "granam/scalar": "dev-master"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "~4.4",
-        "mockery/mockery": ">=0.9"
+  "name": "granam/integer",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Jaroslav Týc",
+      "homepage": "http://jaroslavtyc.com",
+      "role": "Original author"
     }
+  ],
+  "type": "project",
+  "description": "Lightweight integer container with stand-alone converter",
+  "keywords": [
+    "php",
+    "integer",
+    "converter"
+  ],
+  "homepage": "https://github.com/jaroslavtyc/granam-integer",
+  "autoload": {
+    "psr-4": {
+      "Granam\\": "Granam/"
+    }
+  },
+  "require": {
+    "php": ">=5.4",
+    "granam/strict-object": "dev-master",
+    "granam/scalar": "dev-master"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.4",
+    "mockery/mockery": ">=0.9"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }
