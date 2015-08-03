@@ -12,7 +12,7 @@ class IntegerObject extends Scalar implements IntegerInterface
      */
     public function __construct($value)
     {
-        $this->value = ToInteger::toInteger($value);
+        parent::__construct(ToInteger::toInteger($value));
     }
 
 }
