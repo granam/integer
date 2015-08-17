@@ -1,14 +1,22 @@
 <?php
 namespace Granam\Integer\Tools;
 
+use Granam\Number\Tools\ToNumber;
 use Granam\Scalar\Tools\ToString;
 
 class ToInteger
 {
-    public static function toInteger($value)
+    /**
+     * @param mixed $value
+     * @param bool $paranoid Throws exception if some value is lost on cast due to rounding on cast
+     *
+     * @return int
+     */
+    public static function toInteger($value, $paranoid = false)
     {
-        if (is_int($value) || is_bool($value) || is_null($value)) {
-            // true = 1; false = 0; null = 0
+        $value = self::convertToNumber($value, $paranoid);
+
+        if (is_int($value)) {
             return intval($value);
         }
 
@@ -18,6 +26,19 @@ class ToInteger
         self::checkIfValueHasNotBeenLost($integerValue, $stringValue);
 
         return $integerValue;
+    }
+
+    private static function convertToNumber($value, $paranoid)
+    {
+        try {
+            return ToNumber::toNumber($value, $paranoid);
+        } catch (\Granam\Number\Tools\Exceptions\WrongParameterType $exception) {
+            // wrapping by local one
+            throw new Exceptions\WrongParameterType($exception->getMessage(), $exception->getCode(), $exception);
+        } catch (\Granam\Number\Tools\Exceptions\ValueLostOnCast $exception) {
+            // wrapping by local one
+            throw new Exceptions\ValueLostOnCast($exception->getMessage(), $exception->getCode(), $exception);
+        }
     }
 
     private static function convertToString($value)
