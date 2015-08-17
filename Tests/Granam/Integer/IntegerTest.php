@@ -168,6 +168,23 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
     {
         new IntegerObject(PHP_INT_MAX . '123');
     }
+
+    /**
+     * @test
+     * @expectedException \Granam\Integer\Tools\Exceptions\ValueLostOnCast
+     */
+    public function I_can_force_exception_throw_for_rounding()
+    {
+        $value = '123.999999999999999999';
+        try {
+            $silentlyRounded = new IntegerObject($value);
+            $this->assertSame(124, $silentlyRounded->getValue());
+        } catch (\Exception $exception) {
+            $this->fail('Unexpected exception: ' . $exception->getMessage());
+        }
+
+        new IntegerObject($value, true /* paranoid */);
+    }
 }
 
 /** inner */

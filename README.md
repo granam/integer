@@ -37,4 +37,11 @@ $integerFromNull = new IntegerObject(null);
 var_dump($integerFromNull->getValue());
 // ...
 
+$stringWithAlmostInteger = '0.9999999999999999';
+$integerFromStringWithAlmostInteger = new IntegerObject($stringWithAlmostInteger);
+// int(1)
+var_dump($integerFromStringWithAlmostInteger->getValue());
+// int(0) -- because of intval(floatval($value))
+var_dump(intval($stringWithAlmostInteger));
+
 ```
