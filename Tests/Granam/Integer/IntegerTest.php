@@ -6,32 +6,17 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function can_create_instance()
+    public function I_can_create_integer_object()
     {
-        $instance = new IntegerObject(12345);
-        $this->assertNotNull($instance);
-
-        return $instance;
-    }
-
-    /**
-     * @param Integer $integer
-     *
-     * @test
-     *
-     * @depends can_create_instance
-     */
-    public function has_local_interface($integer)
-    {
-        $this->assertInstanceOf('Granam\Integer\IntegerInterface', $integer);
+        $integerObject = new IntegerObject(12345);
+        $this->assertNotNull($integerObject);
+        $this->assertInstanceOf('Granam\Integer\IntegerInterface', $integerObject);
     }
 
     /**
      * @test
-     *
-     * @depends can_create_instance
      */
-    public function gives_same_value_as_created_with()
+    public function I_can_get_value()
     {
         $withInteger = new IntegerObject($integerValue = 123456);
         $this->assertSame($integerValue, $withInteger->getValue());
@@ -41,10 +26,8 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     *
-     * @depends gives_same_value_as_created_with
      */
-    public function can_be_turned_into_string()
+    public function I_can_use_integer_object_as_string()
     {
         $integer = new IntegerObject($integerValue = 123456);
         $this->assertSame((string)$integerValue, (string)$integer);
@@ -53,7 +36,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function float_without_decimal_can_be_used()
+    public function I_can_use_float_without_decimal()
     {
         $integer = new IntegerObject($floatValue = 1.0);
         $this->assertSame(1, $integer->getValue());
@@ -64,7 +47,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
      * @test
      * @expectedException \Granam\Integer\Exceptions\WrongParameterType
      */
-    public function float_with_decimal_cause_exception()
+    public function I_cannot_use_float_with_decimal()
     {
         new IntegerObject(1.1);
     }
@@ -72,7 +55,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function false_is_converted_to_zero()
+    public function I_can_use_false_as_integer_zero()
     {
         $integer = new IntegerObject(false);
         $this->assertSame(0, $integer->getValue());
@@ -82,7 +65,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function true_is_converted_to_one()
+    public function I_can_use_true_as_integer_one()
     {
         $integer = new IntegerObject(true);
         $this->assertSame(1, $integer->getValue());
@@ -92,7 +75,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function null_is_converted_to_zero()
+    public function I_can_use_null_as_integer_zero()
     {
         $integer = new IntegerObject(null);
         $this->assertSame(0, $integer->getValue());
@@ -102,7 +85,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function empty_string_is_converted_to_zero()
+    public function I_can_use_empty_string_as_integer_zero()
     {
         $integer = new IntegerObject('');
         $this->assertSame(0, $integer->getValue());
@@ -113,7 +96,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
      * @test
      * @expectedException \Granam\Integer\Exceptions\WrongParameterType
      */
-    public function array_cause_exception()
+    public function I_cannot_use_array()
     {
         new IntegerObject([]);
     }
@@ -122,7 +105,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
      * @test
      * @expectedException \Granam\Integer\Exceptions\WrongParameterType
      */
-    public function resource_cause_exception()
+    public function I_cannot_use_resource()
     {
         new IntegerObject(tmpfile());
     }
@@ -131,7 +114,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
      * @test
      * @expectedException \Granam\Integer\Exceptions\WrongParameterType
      */
-    public function object_cause_exception()
+    public function I_cannot_use_object()
     {
         new IntegerObject(new \stdClass());
     }
@@ -139,7 +122,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function to_string_object_is_converted_to_its_integer_value()
+    public function I_can_use_to_string_object()
     {
         $integer = new IntegerObject(new TestWithToString($integerValue = 12345));
         $this->assertSame($integerValue, $integer->getValue());
@@ -154,7 +137,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function to_string_object_without_integer_is_zero()
+    public function I_can_use_to_string_object_without_number_as_integer_zero()
     {
         $integer = new IntegerObject(new TestWithToString($string = 'non-integer'));
         $this->assertSame(0, $integer->getValue());
@@ -164,8 +147,11 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function wrapping_zeroes_are_stripped_away()
+    public function I_get_value_without_trash()
     {
+        $integer = new IntegerObject($wrappedWithTrash = '   000123   foo bar');
+        $this->assertSame(123, $integer->getValue());
+        $this->assertSame(intval($wrappedWithTrash), $integer->getValue());
         $integer = new IntegerObject($withLeadingZeroes = '000123');
         $this->assertSame(123, $integer->getValue());
         $this->assertSame(intval($withLeadingZeroes), $integer->getValue());
@@ -178,16 +164,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
      * @test
      * @expectedException \Granam\Integer\Exceptions\WrongParameterType
      */
-    public function decimal_value_lost_cause_exception()
-    {
-        new IntegerObject(123.456);
-    }
-
-    /**
-     * @test
-     * @expectedException \Granam\Integer\Exceptions\WrongParameterType
-     */
-    public function integer_value_lost_cause_exception()
+    public function I_cannot_use_string_number_greater_than_int_max()
     {
         new IntegerObject(PHP_INT_MAX . '123');
     }

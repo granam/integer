@@ -2,9 +2,9 @@
 namespace Granam\Integer;
 
 use Granam\Integer\Tools\ToInteger;
-use Granam\Scalar\Scalar;
+use Granam\Number\NumberObject;
 
-class IntegerObject extends Scalar implements IntegerInterface
+class IntegerObject extends NumberObject implements IntegerInterface
 {
 
     /**

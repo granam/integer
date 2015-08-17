@@ -1,9 +1,9 @@
 <?php
 namespace Granam\Integer;
 
-use Granam\Scalar\ScalarInterface;
+use Granam\Number\NumberInterface;
 
-interface IntegerInterface extends ScalarInterface
+interface IntegerInterface extends NumberInterface
 {
     /**
      * @return int
