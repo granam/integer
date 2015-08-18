@@ -2,7 +2,7 @@
 namespace Granam\Integer\Tools;
 
 use Granam\Number\Tools\ToNumber;
-use Granam\Scalar\Tools\ToString;
+use Granam\Scalar\Tools\ValueDescriber;
 
 class ToInteger
 {
@@ -20,10 +20,8 @@ class ToInteger
             return intval($value);
         }
 
-        $stringValue = self::convertToString($value);
-        $integerValue = intval($stringValue);
-
-        self::checkIfValueHasNotBeenLost($integerValue, $stringValue);
+        $integerValue = intval($value);
+        self::checkIfValueHasNotBeenLost($integerValue, $value);
 
         return $integerValue;
     }
@@ -41,21 +39,16 @@ class ToInteger
         }
     }
 
-    private static function convertToString($value)
+    /**
+     * @param int $integerValue
+     * @param float $floatValue
+     */
+    private static function checkIfValueHasNotBeenLost($integerValue, $floatValue)
     {
-        try {
-            return trim(ToString::toString($value));
-        } catch (\Granam\Scalar\Exceptions\WrongParameterType $exception) {
-            // wrapping the exception to local one
-            throw new Exceptions\WrongParameterType($exception->getMessage(), $exception->getCode(), $exception);
-        }
-    }
-
-    private static function checkIfValueHasNotBeenLost($integerValue, $stringValue)
-    {
-        if (floatval($integerValue) !== floatval($stringValue)) { // some decimal value or integer overflow has been lost on cast to integer
+        if (floatval($integerValue) !== floatval($floatValue)) { // some decimal value or integer overflow has been lost on cast to integer
             throw new Exceptions\WrongParameterType(
-                'Some value has been lost on cast. Got ' . var_export($stringValue, true) . ', cast into integer ' . $integerValue
+                'Some value has been lost on cast. Got ' . ValueDescriber::describe($floatValue) .
+                ', cast into ' . ValueDescriber::describe($integerValue)
             );
         }
     }
