@@ -2,7 +2,7 @@
 namespace Granam\Integer\Tools;
 
 use Granam\Number\Tools\ToNumber;
-use Granam\Scalar\Tools\ValueDescriber;
+use Granam\Tools\ValueDescriber;
 
 class ToInteger
 {
