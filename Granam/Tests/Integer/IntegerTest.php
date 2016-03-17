@@ -1,5 +1,7 @@
 <?php
-namespace Granam\Integer;
+namespace Granam\Tests\Integer;
+
+use Granam\Integer\IntegerObject;
 
 class IntegerTest extends \PHPUnit_Framework_TestCase
 {
@@ -9,8 +11,8 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
     public function I_can_create_integer_object()
     {
         $integerObject = new IntegerObject(12345);
-        $this->assertNotNull($integerObject);
-        $this->assertInstanceOf('Granam\Integer\IntegerInterface', $integerObject);
+        self::assertNotNull($integerObject);
+        self::assertInstanceOf('Granam\Integer\IntegerInterface', $integerObject);
     }
 
     /**
@@ -19,9 +21,9 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
     public function I_can_get_value()
     {
         $withInteger = new IntegerObject($integerValue = 123456);
-        $this->assertSame($integerValue, $withInteger->getValue());
+        self::assertSame($integerValue, $withInteger->getValue());
         $withString = new IntegerObject($stringValue = '123456');
-        $this->assertSame(intval($stringValue), $withString->getValue());
+        self::assertSame((int)$stringValue, $withString->getValue());
     }
 
     /**
@@ -30,7 +32,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
     public function I_can_use_integer_object_as_string()
     {
         $integer = new IntegerObject($integerValue = 123456);
-        $this->assertSame((string)$integerValue, (string)$integer);
+        self::assertSame((string)$integerValue, (string)$integer);
     }
 
     /**
@@ -39,8 +41,8 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
     public function I_can_use_float_without_decimal()
     {
         $integer = new IntegerObject($floatValue = 1.0);
-        $this->assertSame(1, $integer->getValue());
-        $this->assertSame(intval($floatValue), $integer->getValue());
+        self::assertSame(1, $integer->getValue());
+        self::assertSame((int)$floatValue, $integer->getValue());
     }
 
     /**
@@ -58,8 +60,8 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
     public function I_can_use_false_as_integer_zero()
     {
         $integer = new IntegerObject(false);
-        $this->assertSame(0, $integer->getValue());
-        $this->assertSame(intval(false), $integer->getValue());
+        self::assertSame(0, $integer->getValue());
+        self::assertSame((int)false, $integer->getValue());
     }
 
     /**
@@ -68,8 +70,8 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
     public function I_can_use_true_as_integer_one()
     {
         $integer = new IntegerObject(true);
-        $this->assertSame(1, $integer->getValue());
-        $this->assertSame(intval(true), $integer->getValue());
+        self::assertSame(1, $integer->getValue());
+        self::assertSame((int)true, $integer->getValue());
     }
 
     /**
@@ -78,8 +80,8 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
     public function I_can_use_null_as_integer_zero()
     {
         $integer = new IntegerObject(null);
-        $this->assertSame(0, $integer->getValue());
-        $this->assertSame(intval(null), $integer->getValue());
+        self::assertSame(0, $integer->getValue());
+        self::assertSame((int)null, $integer->getValue());
     }
 
     /**
@@ -88,8 +90,8 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
     public function I_can_use_empty_string_as_integer_zero()
     {
         $integer = new IntegerObject('');
-        $this->assertSame(0, $integer->getValue());
-        $this->assertSame(intval(''), $integer->getValue());
+        self::assertSame(0, $integer->getValue());
+        self::assertSame((int)'', $integer->getValue());
     }
 
     /**
@@ -125,13 +127,13 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
     public function I_can_use_to_string_object()
     {
         $integer = new IntegerObject(new TestWithToString($integerValue = 12345));
-        $this->assertSame($integerValue, $integer->getValue());
+        self::assertSame($integerValue, $integer->getValue());
         $stringInteger = new IntegerObject(new TestWithToString($stringValue = '98765'));
-        $this->assertSame(intval($stringValue), $stringInteger->getValue());
+        self::assertSame((int)$stringValue, $stringInteger->getValue());
         $floatInteger = new IntegerObject(new TestWithToString($floatValue = 123.0));
-        $this->assertSame(intval($floatValue), $floatInteger->getValue());
+        self::assertSame((int)$floatValue, $floatInteger->getValue());
         $stringFloatInteger = new IntegerObject(new TestWithToString($stringFloatValue = '987.0'));
-        $this->assertSame(intval($stringFloatValue), $stringFloatInteger->getValue());
+        self::assertSame((int)$stringFloatValue, $stringFloatInteger->getValue());
     }
 
     /**
@@ -140,8 +142,8 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
     public function I_can_use_to_string_object_without_number_as_integer_zero()
     {
         $integer = new IntegerObject(new TestWithToString($string = 'non-integer'));
-        $this->assertSame(0, $integer->getValue());
-        $this->assertSame(intval($string), $integer->getValue());
+        self::assertSame(0, $integer->getValue());
+        self::assertSame((int)$string, $integer->getValue());
     }
 
     /**
@@ -150,14 +152,14 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
     public function I_get_value_without_trash()
     {
         $integer = new IntegerObject($wrappedWithTrash = '   000123   foo bar');
-        $this->assertSame(123, $integer->getValue());
-        $this->assertSame(intval($wrappedWithTrash), $integer->getValue());
+        self::assertSame(123, $integer->getValue());
+        self::assertSame((int)$wrappedWithTrash, $integer->getValue());
         $integer = new IntegerObject($withLeadingZeroes = '000123');
-        $this->assertSame(123, $integer->getValue());
-        $this->assertSame(intval($withLeadingZeroes), $integer->getValue());
+        self::assertSame(123, $integer->getValue());
+        self::assertSame((int)$withLeadingZeroes, $integer->getValue());
         $integer = new IntegerObject($zeroesAround = '00012345.000');
-        $this->assertSame(12345, $integer->getValue());
-        $this->assertSame(intval($zeroesAround), $integer->getValue());
+        self::assertSame(12345, $integer->getValue());
+        self::assertSame((int)$zeroesAround, $integer->getValue());
     }
 
     /**
@@ -178,9 +180,9 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
         $value = '123.999999999999999999';
         try {
             $silentlyRounded = new IntegerObject($value);
-            $this->assertSame(124, $silentlyRounded->getValue());
+            self::assertSame(124, $silentlyRounded->getValue());
         } catch (\Exception $exception) {
-            $this->fail('Unexpected exception: ' . $exception->getMessage());
+            self::fail('Unexpected exception: ' . $exception->getMessage());
         }
 
         new IntegerObject($value, true /* paranoid */);
