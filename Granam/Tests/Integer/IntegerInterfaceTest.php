@@ -12,6 +12,10 @@ class IntegerInterfaceTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function inherits_from_scalar_interface()
     {
-        self::assertTrue(is_a('Granam\Integer\IntegerInterface', 'Granam\Number\NumberInterface', true /* allow string as tested class name*/));
+        self::assertTrue(is_a(
+            'Granam\Integer\IntegerInterface',
+            'Granam\Number\NumberInterface',
+            true /* allow string as tested class name*/
+        ));
     }
 }
