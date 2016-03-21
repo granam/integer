@@ -17,10 +17,10 @@ class ToInteger
         $value = self::convertToNumber($value, $paranoid);
 
         if (is_int($value)) {
-            return intval($value);
+            return (int)$value;
         }
 
-        $integerValue = intval($value);
+        $integerValue = (int)$value;
         self::checkIfValueHasNotBeenLost($integerValue, $value);
 
         return $integerValue;
@@ -45,7 +45,7 @@ class ToInteger
      */
     private static function checkIfValueHasNotBeenLost($integerValue, $floatValue)
     {
-        if (floatval($integerValue) !== floatval($floatValue)) { // some decimal value or integer overflow has been lost on cast to integer
+        if ((float)$integerValue !== (float)$floatValue) { // some decimal value or integer overflow has been lost on cast to integer
             throw new Exceptions\WrongParameterType(
                 'Some value has been lost on cast. Got ' . ValueDescriber::describe($floatValue) .
                 ', cast into ' . ValueDescriber::describe($integerValue)
