@@ -8,13 +8,14 @@ class ToInteger
 {
     /**
      * @param mixed $value
-     * @param bool $paranoid Throws exception if some value is lost on cast due to rounding on cast
+     * @param bool $strict = true allows only explicit values, not null and empty string
+     * @param bool $paranoid = false Throws exception if some value is lost on cast due to rounding on cast
      *
      * @return int
      */
-    public static function toInteger($value, $paranoid = false)
+    public static function toInteger($value, $strict, $paranoid = false)
     {
-        $value = self::convertToNumber($value, $paranoid);
+        $value = self::convertToNumber($value, $strict, $paranoid);
 
         if (is_int($value)) {
             return (int)$value;
@@ -26,10 +27,10 @@ class ToInteger
         return $integerValue;
     }
 
-    private static function convertToNumber($value, $paranoid)
+    private static function convertToNumber($value, $strict, $paranoid)
     {
         try {
-            return ToNumber::toNumber($value, $paranoid);
+            return ToNumber::toNumber($value, $strict, $paranoid);
         } catch (\Granam\Number\Tools\Exceptions\WrongParameterType $exception) {
             // wrapping by local one
             throw new Exceptions\WrongParameterType($exception->getMessage(), $exception->getCode(), $exception);
