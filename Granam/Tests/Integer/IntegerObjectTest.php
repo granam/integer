@@ -69,7 +69,7 @@ class IntegerObjectTest extends ICanUseItSameWayAsUsing
 
     /**
      * @test
-     * @expectedException \Granam\Integer\Exceptions\WrongParameterType
+     * @expectedException \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @dataProvider provideStrictnessAndParanoia
      * @param bool $strict
      * @param bool $paranoid
@@ -124,7 +124,7 @@ class IntegerObjectTest extends ICanUseItSameWayAsUsing
 
     /**
      * @test
-     * @expectedException \Granam\Integer\Exceptions\WrongParameterType
+     * @expectedException \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @dataProvider provideStrictnessAndParanoia
      * @param bool $strict
      * @param bool $paranoid
@@ -136,7 +136,7 @@ class IntegerObjectTest extends ICanUseItSameWayAsUsing
 
     /**
      * @test
-     * @expectedException \Granam\Integer\Exceptions\WrongParameterType
+     * @expectedException \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @dataProvider provideStrictnessAndParanoia
      * @param bool $strict
      * @param bool $paranoid
@@ -148,7 +148,7 @@ class IntegerObjectTest extends ICanUseItSameWayAsUsing
 
     /**
      * @test
-     * @expectedException \Granam\Integer\Exceptions\WrongParameterType
+     * @expectedException \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @dataProvider provideStrictnessAndParanoia
      * @param bool $strict
      * @param bool $paranoid
@@ -188,7 +188,7 @@ class IntegerObjectTest extends ICanUseItSameWayAsUsing
 
     /**
      * @test
-     * @expectedException \Granam\Integer\Exceptions\WrongParameterType
+     * @expectedException \Granam\Integer\Tools\Exceptions\WrongParameterType
      */
     public function I_can_not_use_non_numeric_value_by_default()
     {
@@ -232,7 +232,7 @@ class IntegerObjectTest extends ICanUseItSameWayAsUsing
 
     /**
      * @test
-     * @expectedException \Granam\Integer\Exceptions\WrongParameterType
+     * @expectedException \Granam\Integer\Tools\Exceptions\WrongParameterType
      */
     public function I_cannot_use_string_number_greater_than_int_max()
     {

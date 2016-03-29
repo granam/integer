@@ -1,6 +1,7 @@
 <?php
 namespace Granam\Tests\Integer\Tools;
 
+use Granam\Number\NumberObject;
 use Granam\Tests\Exceptions\Tools\AbstractExceptionsHierarchyTest;
 
 class ExceptionHierarchyTest extends AbstractExceptionsHierarchyTest
@@ -19,7 +20,7 @@ class ExceptionHierarchyTest extends AbstractExceptionsHierarchyTest
 
     protected function getExternalRootNamespaces()
     {
-        $externalRootReflection = new \ReflectionClass('\Granam\Number\NumberObject');
+        $externalRootReflection = new \ReflectionClass(NumberObject::getClass());
 
         return $externalRootReflection->getNamespaceName();
     }
