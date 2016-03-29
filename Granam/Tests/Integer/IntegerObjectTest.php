@@ -3,8 +3,24 @@ namespace Granam\Tests\Integer;
 
 use Granam\Integer\IntegerObject;
 
-class IntegerObjectTest extends \PHPUnit_Framework_TestCase
+class IntegerObjectTest extends ICanUseItSameWayAsUsing
 {
+    /**
+     * @test
+     */
+    public function I_can_use_it_just_with_value_parameter()
+    {
+        $this->assertUsableWithJustValueParameter('\Granam\Integer\IntegerObject', '__construct');
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_create_it_same_way_as_using_to_integer()
+    {
+        $this->I_can_create_it_same_way_as_using();
+    }
+
     /**
      * @test
      * @dataProvider provideStrictnessAndParanoia

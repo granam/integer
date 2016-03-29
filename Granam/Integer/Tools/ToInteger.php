@@ -13,7 +13,7 @@ class ToInteger
      *
      * @return int
      */
-    public static function toInteger($value, $strict, $paranoid = false)
+    public static function toInteger($value, $strict = true, $paranoid = false)
     {
         $value = self::convertToNumber($value, $strict, $paranoid);
 
