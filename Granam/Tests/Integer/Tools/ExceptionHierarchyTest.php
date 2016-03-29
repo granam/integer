@@ -17,9 +17,9 @@ class ExceptionHierarchyTest extends AbstractExceptionsHierarchyTest
         return $rootReflection->getNamespaceName();
     }
 
-    protected function getExternalRootNamespace()
+    protected function getExternalRootNamespaces()
     {
-        $externalRootReflection = new \ReflectionClass('\Granam\Number\NumberInterface');
+        $externalRootReflection = new \ReflectionClass('\Granam\Number\NumberObject');
 
         return $externalRootReflection->getNamespaceName();
     }
