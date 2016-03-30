@@ -5,22 +5,38 @@ abstract class ICanUseItSameWayAsUsing extends \PHPUnit_Framework_TestCase
 {
     protected function I_can_create_it_same_way_as_using()
     {
-        $integerObjectReflection = new \ReflectionClass('\Granam\Integer\IntegerObject');
-        $integerConstructor = $integerObjectReflection->getConstructor()->getParameters();
         $toIntegerClassReflection = new \ReflectionClass('\Granam\Integer\Tools\ToInteger');
         $toIntegerParameters = $toIntegerClassReflection->getMethod('toInteger')->getParameters();
-        self::assertEquals($toIntegerParameters, $integerConstructor);
-        foreach ($integerConstructor as $index => $constructorParameter) {
-            $toIntegerParameter = $toIntegerParameters[$index];
-            self::assertEquals($toIntegerParameter, $constructorParameter);
-            self::assertSame($toIntegerParameter->isOptional(), $constructorParameter->isOptional());
-            self::assertSame($toIntegerParameter->allowsNull(), $constructorParameter->allowsNull());
-            self::assertSame($toIntegerParameter->isDefaultValueAvailable(), $constructorParameter->isDefaultValueAvailable());
-            if ($constructorParameter->isDefaultValueAvailable()) {
-                self::assertSame($toIntegerParameter->getDefaultValue(), $constructorParameter->getDefaultValue());
+        $integerObjectReflection = new \ReflectionClass('\Granam\Integer\IntegerObject');
+        $integerConstructor = $integerObjectReflection->getConstructor()->getParameters();
+        self::assertEquals(
+            $this->extractParametersDetails($toIntegerParameters),
+            $this->extractParametersDetails($integerConstructor)
+        );
+    }
+
+    /**
+     * @param array|\ReflectionParameter[] $parameterReflections
+     * @return array
+     */
+    private function extractParametersDetails(array $parameterReflections)
+    {
+        $extracted = [];
+        foreach ($parameterReflections as $parameterReflection) {
+            $extractedParameter = [];
+            foreach (get_class_methods($parameterReflection) as $methodName) {
+                if (in_array($methodName, ['getName', 'isPassedByReference', 'canBePassedByValue', 'isArray',
+                        'isCallable', 'allowsNull', 'getPosition', 'isOptional', 'isDefaultValueAvailable',
+                        'getDefaultValue', 'isVariadic'], true)
+                    && ($methodName !== 'getDefaultValue' || $parameterReflection->isDefaultValueAvailable())
+                ) {
+                    $extractedParameter[$methodName] = $parameterReflection->$methodName();
+                }
             }
-            self::assertSame($toIntegerParameter->getName(), $constructorParameter->getName());
+            $extracted[] = $extractedParameter;
         }
+
+        return $extracted;
     }
 
     protected function assertUsableWithJustValueParameter($sutClass, $testedMethod)
