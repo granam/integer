@@ -10,8 +10,9 @@ class ToInteger
      * @param mixed $value
      * @param bool $strict = true allows only explicit values, not null and empty string
      * @param bool $paranoid = false Throws exception if some value is lost on cast due to rounding on cast
-     *
      * @return int
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
     public static function toInteger($value, $strict = true, $paranoid = false)
     {
@@ -27,6 +28,14 @@ class ToInteger
         return $integerValue;
     }
 
+    /**
+     * @param $value
+     * @param bool $strict
+     * @param bool $paranoid
+     * @return int
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
+     */
     private static function convertToNumber($value, $strict, $paranoid)
     {
         try {
@@ -43,6 +52,7 @@ class ToInteger
     /**
      * @param int $integerValue
      * @param float $floatValue
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      */
     private static function checkIfValueHasNotBeenLost($integerValue, $floatValue)
     {
