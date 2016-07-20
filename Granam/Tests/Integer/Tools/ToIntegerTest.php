@@ -11,13 +11,15 @@ class ToIntegerTest extends ICanUseItSameWayAsUsing
     public function I_can_use_it_just_with_value_parameter()
     {
         $this->assertUsableWithJustValueParameter('\Granam\Integer\Tools\ToInteger', 'toInteger');
+        $this->assertUsableWithJustValueParameter('\Granam\Integer\Tools\ToInteger', 'toPositiveInteger');
+        $this->assertUsableWithJustValueParameter('\Granam\Integer\Tools\ToInteger', 'toNegativeInteger');
     }
 
     /**
      * @test
      */
-    public function I_can_create_it_same_way_as_using_number_object()
+    public function I_can_create_it_same_way_as_using_integer_object()
     {
-        parent::I_can_create_it_same_way_as_using();
+        $this->I_can_create_it_same_way_as_using('toInteger', '\Granam\Integer\IntegerObject');
     }
 }

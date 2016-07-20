@@ -1,5 +1,5 @@
 <?php
-namespace Granam\Integer\Exceptions;
+namespace Granam\Integer\Tools\Exceptions;
 
 use Granam\Number\Exceptions\NegativeNumberCanNotBePositive;
 

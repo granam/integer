@@ -63,4 +63,46 @@ class ToInteger
             );
         }
     }
+
+    /**
+     * @param mixed $value
+     * @param bool $strict = true allows only explicit values, not null and empty string
+     * @param bool $paranoid = false Throws exception if some value is lost on cast due to rounding on cast
+     * @return int
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
+     * @throws \Granam\Integer\Tools\Exceptions\PositiveIntegerCanNotBeNegative
+     */
+    public static function toPositiveInteger($value, $strict = true, $paranoid = false)
+    {
+        $integerValue = static::toInteger($value, $strict, $paranoid);
+        if ($integerValue < 0) {
+            throw new Exceptions\PositiveIntegerCanNotBeNegative(
+                'Expected zero or greater number, got ' . ValueDescriber::describe($value)
+            );
+        }
+
+        return $integerValue;
+    }
+
+    /**
+     * @param mixed $value
+     * @param bool $strict = true allows only explicit values, not null and empty string
+     * @param bool $paranoid = false Throws exception if some value is lost on cast due to rounding on cast
+     * @return int
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
+     * @throws \Granam\Integer\Tools\Exceptions\NegativeIntegerCanNotBePositive
+     */
+    public static function toNegativeInteger($value, $strict = true, $paranoid = false)
+    {
+        $integerValue = static::toInteger($value, $strict, $paranoid);
+        if ($integerValue > 0) {
+            throw new Exceptions\NegativeIntegerCanNotBePositive(
+                'Expected zero or lesser number, got ' . ValueDescriber::describe($value)
+            );
+        }
+
+        return $integerValue;
+    }
 }

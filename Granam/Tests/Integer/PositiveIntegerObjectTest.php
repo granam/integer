@@ -5,7 +5,7 @@ use Granam\Integer\PositiveInteger;
 use Granam\Integer\PositiveIntegerObject;
 use Granam\Number\PositiveNumber;
 
-class PositiveIntegerObjectTest extends \PHPUnit_Framework_TestCase
+class PositiveIntegerObjectTest extends ICanUseItSameWayAsUsing
 {
     /**
      * @test
@@ -29,11 +29,27 @@ class PositiveIntegerObjectTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \Granam\Integer\Exceptions\PositiveIntegerCanNotBeNegative
+     * @expectedException \Granam\Integer\Tools\Exceptions\PositiveIntegerCanNotBeNegative
      * @expectedExceptionMessageRegExp ~\s-1~
      */
     public function I_can_not_create_it_negative()
     {
         new PositiveIntegerObject(-1);
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_use_it_just_with_value_parameter()
+    {
+        $this->assertUsableWithJustValueParameter('\Granam\Integer\PositiveIntegerObject', '__construct');
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_create_it_same_way_as_using_to_positive_integer_conversion()
+    {
+        $this->I_can_create_it_same_way_as_using('toPositiveInteger', '\Granam\Integer\PositiveIntegerObject');
     }
 }

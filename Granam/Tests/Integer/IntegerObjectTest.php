@@ -16,9 +16,9 @@ class IntegerObjectTest extends ICanUseItSameWayAsUsing
     /**
      * @test
      */
-    public function I_can_create_it_same_way_as_using_to_integer()
+    public function I_can_create_it_same_way_as_using_to_integer_conversion()
     {
-        $this->I_can_create_it_same_way_as_using();
+        $this->I_can_create_it_same_way_as_using('toInteger', '\Granam\Integer\IntegerObject');
     }
 
     /**

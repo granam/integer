@@ -3,15 +3,35 @@ namespace Granam\Tests\Integer;
 
 abstract class ICanUseItSameWayAsUsing extends \PHPUnit_Framework_TestCase
 {
-    protected function I_can_create_it_same_way_as_using()
+    protected function I_can_create_it_same_way_as_using(
+        $toIntegerMethod,
+        $integerClassToCompare
+    )
     {
         $toIntegerClassReflection = new \ReflectionClass('\Granam\Integer\Tools\ToInteger');
-        $toIntegerParameters = $toIntegerClassReflection->getMethod('toInteger')->getParameters();
-        $integerObjectReflection = new \ReflectionClass('\Granam\Integer\IntegerObject');
+
+        $toIntegerParameters = $toIntegerClassReflection->getMethod($toIntegerMethod)->getParameters();
+        $integerObjectReflection = new \ReflectionClass($integerClassToCompare);
         $integerConstructor = $integerObjectReflection->getConstructor()->getParameters();
         self::assertEquals(
             $this->extractParametersDetails($toIntegerParameters),
             $this->extractParametersDetails($integerConstructor)
+        );
+
+        $toPositiveIntegerParameters = $toIntegerClassReflection->getMethod('toPositiveInteger')->getParameters();
+        $positiveIntegerObjectReflection = new \ReflectionClass('\Granam\Integer\PositiveIntegerObject');
+        $positiveIntegerConstructor = $positiveIntegerObjectReflection->getConstructor()->getParameters();
+        self::assertEquals(
+            $this->extractParametersDetails($toPositiveIntegerParameters),
+            $this->extractParametersDetails($positiveIntegerConstructor)
+        );
+
+        $toNegativeIntegerParameters = $toIntegerClassReflection->getMethod('toNegativeInteger')->getParameters();
+        $positiveIntegerObjectReflection = new \ReflectionClass('\Granam\Integer\NegativeIntegerObject');
+        $positiveIntegerConstructor = $positiveIntegerObjectReflection->getConstructor()->getParameters();
+        self::assertEquals(
+            $this->extractParametersDetails($toNegativeIntegerParameters),
+            $this->extractParametersDetails($positiveIntegerConstructor)
         );
     }
 
