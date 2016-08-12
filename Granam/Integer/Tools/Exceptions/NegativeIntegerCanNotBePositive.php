@@ -1,7 +1,7 @@
 <?php
 namespace Granam\Integer\Tools\Exceptions;
 
-use Granam\Number\Exceptions\NegativeNumberCanNotBePositive;
+use Granam\Number\Tools\Exceptions\NegativeNumberCanNotBePositive;
 
 class NegativeIntegerCanNotBePositive extends NegativeNumberCanNotBePositive implements Logic
 {
