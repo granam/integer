@@ -1,6 +1,7 @@
 <?php
 namespace Granam\Tests\Integer\Tools;
 
+use Granam\Integer\IntegerInterface;
 use Granam\Number\NumberObject;
 use Granam\Tests\Exceptions\Tools\AbstractExceptionsHierarchyTest;
 
@@ -13,14 +14,14 @@ class ExceptionHierarchyTest extends AbstractExceptionsHierarchyTest
 
     protected function getRootNamespace()
     {
-        $rootReflection = new \ReflectionClass('\Granam\Integer\IntegerInterface');
+        $rootReflection = new \ReflectionClass(IntegerInterface::class);
 
         return $rootReflection->getNamespaceName();
     }
 
     protected function getExternalRootNamespaces()
     {
-        $externalRootReflection = new \ReflectionClass(NumberObject::getClass());
+        $externalRootReflection = new \ReflectionClass(NumberObject::class);
 
         return $externalRootReflection->getNamespaceName();
     }
