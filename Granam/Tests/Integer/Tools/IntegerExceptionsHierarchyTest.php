@@ -3,9 +3,9 @@ namespace Granam\Tests\Integer\Tools;
 
 use Granam\Integer\IntegerInterface;
 use Granam\Number\NumberObject;
-use Granam\Tests\Exceptions\Tools\AbstractExceptionsHierarchyTest;
+use Granam\Tests\ExceptionsHierarchy\Exceptions\AbstractExceptionsHierarchyTest;
 
-class ExceptionHierarchyTest extends AbstractExceptionsHierarchyTest
+class IntegerExceptionsHierarchyTest extends AbstractExceptionsHierarchyTest
 {
     protected function getTestedNamespace()
     {
