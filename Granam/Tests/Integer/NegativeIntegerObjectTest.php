@@ -47,7 +47,7 @@ class NegativeIntegerObjectTest extends ICanUseItSameWayAsUsing
      */
     public function I_can_use_it_just_with_value_parameter()
     {
-        $this->assertUsableWithJustValueParameter('\Granam\Integer\NegativeIntegerObject', '__construct');
+        $this->assertUsableWithJustValueParameter(NegativeIntegerObject::class, '__construct');
     }
 
     /**
@@ -55,6 +55,6 @@ class NegativeIntegerObjectTest extends ICanUseItSameWayAsUsing
      */
     public function I_can_create_it_same_way_as_to_negative_integer_conversion()
     {
-        $this->I_can_create_it_same_way_as_using('toNegativeInteger', '\Granam\Integer\NegativeIntegerObject');
+        $this->I_can_create_it_same_way_as_using('toNegativeInteger', NegativeIntegerObject::class);
     }
 }

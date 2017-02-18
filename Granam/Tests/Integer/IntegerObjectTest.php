@@ -2,6 +2,7 @@
 namespace Granam\Tests\Integer;
 
 use Granam\Integer\IntegerObject;
+use Granam\Integer\IntegerInterface;
 
 class IntegerObjectTest extends ICanUseItSameWayAsUsing
 {
@@ -10,7 +11,7 @@ class IntegerObjectTest extends ICanUseItSameWayAsUsing
      */
     public function I_can_use_it_just_with_value_parameter()
     {
-        $this->assertUsableWithJustValueParameter('\Granam\Integer\IntegerObject', '__construct');
+        $this->assertUsableWithJustValueParameter(IntegerObject::class, '__construct');
     }
 
     /**
@@ -18,7 +19,7 @@ class IntegerObjectTest extends ICanUseItSameWayAsUsing
      */
     public function I_can_create_it_same_way_as_using_to_integer_conversion()
     {
-        $this->I_can_create_it_same_way_as_using('toInteger', '\Granam\Integer\IntegerObject');
+        $this->I_can_create_it_same_way_as_using('toInteger', IntegerObject::class);
     }
 
     /**
@@ -31,7 +32,7 @@ class IntegerObjectTest extends ICanUseItSameWayAsUsing
     {
         $integerObject = new IntegerObject($value = 12345, $strict, $paranoid);
         self::assertNotNull($integerObject);
-        self::assertInstanceOf('Granam\Integer\IntegerInterface', $integerObject);
+        self::assertInstanceOf(IntegerInterface::class, $integerObject);
         self::assertSame($value, $integerObject->getValue());
         self::assertSame((string)$value, (string)$integerObject);
     }

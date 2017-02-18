@@ -1,14 +1,19 @@
 <?php
 namespace Granam\Tests\Integer;
 
-abstract class ICanUseItSameWayAsUsing extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+use Granam\Integer\Tools\ToInteger;
+use Granam\Integer\PositiveIntegerObject;
+use Granam\Integer\NegativeIntegerObject;
+
+abstract class ICanUseItSameWayAsUsing extends TestCase
 {
     protected function I_can_create_it_same_way_as_using(
         $toIntegerMethod,
         $integerClassToCompare
     )
     {
-        $toIntegerClassReflection = new \ReflectionClass('\Granam\Integer\Tools\ToInteger');
+        $toIntegerClassReflection = new \ReflectionClass(ToInteger::class);
 
         $toIntegerParameters = $toIntegerClassReflection->getMethod($toIntegerMethod)->getParameters();
         $integerObjectReflection = new \ReflectionClass($integerClassToCompare);
@@ -19,7 +24,7 @@ abstract class ICanUseItSameWayAsUsing extends \PHPUnit_Framework_TestCase
         );
 
         $toPositiveIntegerParameters = $toIntegerClassReflection->getMethod('toPositiveInteger')->getParameters();
-        $positiveIntegerObjectReflection = new \ReflectionClass('\Granam\Integer\PositiveIntegerObject');
+        $positiveIntegerObjectReflection = new \ReflectionClass(PositiveIntegerObject::class);
         $positiveIntegerConstructor = $positiveIntegerObjectReflection->getConstructor()->getParameters();
         self::assertEquals(
             $this->extractParametersDetails($toPositiveIntegerParameters),
@@ -27,7 +32,7 @@ abstract class ICanUseItSameWayAsUsing extends \PHPUnit_Framework_TestCase
         );
 
         $toNegativeIntegerParameters = $toIntegerClassReflection->getMethod('toNegativeInteger')->getParameters();
-        $positiveIntegerObjectReflection = new \ReflectionClass('\Granam\Integer\NegativeIntegerObject');
+        $positiveIntegerObjectReflection = new \ReflectionClass(NegativeIntegerObject::class);
         $positiveIntegerConstructor = $positiveIntegerObjectReflection->getConstructor()->getParameters();
         self::assertEquals(
             $this->extractParametersDetails($toNegativeIntegerParameters),

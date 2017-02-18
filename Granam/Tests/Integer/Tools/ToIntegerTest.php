@@ -2,6 +2,8 @@
 namespace Granam\Tests\Integer\Tools;
 
 use Granam\Tests\Integer\ICanUseItSameWayAsUsing;
+use Granam\Integer\Tools\ToInteger;
+use Granam\Integer\IntegerObject;
 
 class ToIntegerTest extends ICanUseItSameWayAsUsing
 {
@@ -10,9 +12,9 @@ class ToIntegerTest extends ICanUseItSameWayAsUsing
      */
     public function I_can_use_it_just_with_value_parameter()
     {
-        $this->assertUsableWithJustValueParameter('\Granam\Integer\Tools\ToInteger', 'toInteger');
-        $this->assertUsableWithJustValueParameter('\Granam\Integer\Tools\ToInteger', 'toPositiveInteger');
-        $this->assertUsableWithJustValueParameter('\Granam\Integer\Tools\ToInteger', 'toNegativeInteger');
+        $this->assertUsableWithJustValueParameter(ToInteger::class, 'toInteger');
+        $this->assertUsableWithJustValueParameter(ToInteger::class, 'toPositiveInteger');
+        $this->assertUsableWithJustValueParameter(ToInteger::class, 'toNegativeInteger');
     }
 
     /**
@@ -20,6 +22,6 @@ class ToIntegerTest extends ICanUseItSameWayAsUsing
      */
     public function I_can_create_it_same_way_as_using_integer_object()
     {
-        $this->I_can_create_it_same_way_as_using('toInteger', '\Granam\Integer\IntegerObject');
+        $this->I_can_create_it_same_way_as_using('toInteger', IntegerObject::class);
     }
 }

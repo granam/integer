@@ -42,7 +42,7 @@ class PositiveIntegerObjectTest extends ICanUseItSameWayAsUsing
      */
     public function I_can_use_it_just_with_value_parameter()
     {
-        $this->assertUsableWithJustValueParameter('\Granam\Integer\PositiveIntegerObject', '__construct');
+        $this->assertUsableWithJustValueParameter(PositiveIntegerObject::class, '__construct');
     }
 
     /**
@@ -50,6 +50,6 @@ class PositiveIntegerObjectTest extends ICanUseItSameWayAsUsing
      */
     public function I_can_create_it_same_way_as_using_to_positive_integer_conversion()
     {
-        $this->I_can_create_it_same_way_as_using('toPositiveInteger', '\Granam\Integer\PositiveIntegerObject');
+        $this->I_can_create_it_same_way_as_using('toPositiveInteger', PositiveIntegerObject::class);
     }
 }
