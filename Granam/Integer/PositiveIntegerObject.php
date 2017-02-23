@@ -4,6 +4,9 @@ namespace Granam\Integer;
 use Granam\Integer\Tools\ToInteger;
 use Granam\Number\PositiveNumberObject;
 
+/**
+ * @method int getValue()
+ */
 class PositiveIntegerObject extends PositiveNumberObject implements PositiveInteger
 {
 
