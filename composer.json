@@ -22,8 +22,9 @@
     }
   },
   "require": {
-    "php": ">=7.0",
-    "granam/number": "dev-master"
+    "php": ">=7.1",
+    "granam/number": "dev-master",
+    "granam/object-history": "dev-master"
   },
   "require-dev": {
     "phpunit/phpunit": "~6.0",

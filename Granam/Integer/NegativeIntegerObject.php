@@ -4,6 +4,10 @@ namespace Granam\Integer;
 use Granam\Integer\Tools\ToInteger;
 use Granam\Number\NegativeNumberObject;
 
+/**
+ * @method IntegerWithHistory add(int|float|NumberInterface $value)
+ * @method IntegerWithHistory sub(int|float|NumberInterface $value)
+ */
 class NegativeIntegerObject extends NegativeNumberObject implements NegativeInteger
 {
 

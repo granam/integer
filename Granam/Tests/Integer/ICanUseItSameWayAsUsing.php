@@ -1,17 +1,17 @@
 <?php
 namespace Granam\Tests\Integer;
 
-use PHPUnit\Framework\TestCase;
+use Granam\Tests\Tools\TestWithMockery;
 use Granam\Integer\Tools\ToInteger;
 use Granam\Integer\PositiveIntegerObject;
 use Granam\Integer\NegativeIntegerObject;
 
-abstract class ICanUseItSameWayAsUsing extends TestCase
+abstract class ICanUseItSameWayAsUsing extends TestWithMockery
 {
     protected function I_can_create_it_same_way_as_using(
-        $toIntegerMethod,
-        $integerClassToCompare
-    )
+        string $toIntegerMethod,
+        string $integerClassToCompare
+    ): void
     {
         $toIntegerClassReflection = new \ReflectionClass(ToInteger::class);
 
@@ -44,7 +44,7 @@ abstract class ICanUseItSameWayAsUsing extends TestCase
      * @param array|\ReflectionParameter[] $parameterReflections
      * @return array
      */
-    private function extractParametersDetails(array $parameterReflections)
+    private function extractParametersDetails(array $parameterReflections): array
     {
         $extracted = [];
         foreach ($parameterReflections as $parameterReflection) {
@@ -64,7 +64,7 @@ abstract class ICanUseItSameWayAsUsing extends TestCase
         return $extracted;
     }
 
-    protected function assertUsableWithJustValueParameter($sutClass, $testedMethod)
+    protected function assertUsableWithJustValueParameter(string $sutClass, string $testedMethod): void
     {
         $classReflection = new \ReflectionClass($sutClass);
         $method = $classReflection->getMethod($testedMethod);
