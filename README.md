@@ -5,7 +5,11 @@
 ## Hint
 First of all, make sure you don't need just a [simple  built-in int validation](http://php.net/manual/en/function.filter-var.php).
 
-Note: requires PHP 7.1+
+#### Versions requirements
+ - 6.* requires [PHP 7.1+](http://php.net/releases/7_1_0.php) ```composer require granam/integer:6.*```
+ - 5.* requires [PHP 7.0+](http://php.net/releases/7_0_0.php) ```composer require granam/integer:5.*```
+ - 4.* requires [PHP 5.6+](http://php.net/releases/5_6_0.php) ```composer require granam/integer:4.*```
+ - 3.* requires [PHP 5.4+](http://php.net/releases/5_4_0.php) ```composer require granam/integer:3.*```
 ```php
 <?php
 use Granam\Integer\IntegerObject;
