@@ -5,27 +5,27 @@
 ## Hint
 First of all, make sure you don't need just a [simple  built-in int validation](http://php.net/manual/en/function.filter-var.php).
 
-Note: requires PHP 5.4+
+Note: requires PHP 7.1+
 ```php
 <?php
-use Granam\IntegerObject\IntegerObject;
-use Granam\IntegerObject\Exceptions\WrongParameterType;
+use Granam\Integer\IntegerObject;
+use Granam\Integer\Tools\Exceptions\WrongParameterType;
 
 $integer = new IntegerObject(12345);
 
 // int(12345)
 var_dump($integer->getValue());
 
-$integerFromString = new IntegerObject("124578");
+$integerFromString = new IntegerObject('124578');
 // int(124578)
 var_dump($integerFromString->getValue());
 
-$integerFromFloatString = new IntegerObject("987.0");
+$integerFromFloatString = new IntegerObject('987.0');
 // int(987)
 var_dump($integerFromFloatString->getValue());
 
 try {
-new IntegerObject(987.123);
+    new IntegerObject(987.123);
 } catch (WrongParameterType $integerException) {
    // Something get wrong: Some value has been lost on cast. Got '987.456', cast into integer 987
    echo('Something get wrong: ' . $integerException->getMessage() . "\n");
@@ -44,7 +44,7 @@ $stringWithAlmostInteger = '0.9999999999999999';
 $integerFromStringWithAlmostInteger = new IntegerObject($stringWithAlmostInteger);
 // int(1)
 var_dump($integerFromStringWithAlmostInteger->getValue());
-// int(0) -- because of intval(floatval($value))
-var_dump(intval($stringWithAlmostInteger));
+// int(0) -- because of (int)(float)$value
+var_dump((int)$stringWithAlmostInteger);
 
 ```
