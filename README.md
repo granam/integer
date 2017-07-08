@@ -5,19 +5,19 @@
 Note: requires PHP 5.4+
 ```php
 <?php
-use Granam\IntegerObject\IntegerObject;
-use Granam\IntegerObject\Exceptions\WrongParameterType;
+use Granam\Integer\IntegerObject;
+use Granam\Integer\Tools\Exceptions\WrongParameterType;
 
 $integer = new IntegerObject(12345);
 
 // int(12345)
 var_dump($integer->getValue());
 
-$integerFromString = new IntegerObject("124578");
+$integerFromString = new IntegerObject('124578');
 // int(124578)
 var_dump($integerFromString->getValue());
 
-$integerFromFloatString = new IntegerObject("987.0");
+$integerFromFloatString = new IntegerObject('987.0');
 // int(987)
 var_dump($integerFromFloatString->getValue());
 
@@ -42,6 +42,6 @@ $integerFromStringWithAlmostInteger = new IntegerObject($stringWithAlmostInteger
 // int(1)
 var_dump($integerFromStringWithAlmostInteger->getValue());
 // int(0) -- because of intval(floatval($value))
-var_dump(intval($stringWithAlmostInteger));
+var_dump((int)$stringWithAlmostInteger);
 
 ```
