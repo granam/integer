@@ -1,11 +1,7 @@
 language: php
 php:
   - nightly
-  - 7.2
   - 7.1
-matrix:
-  allow_failures:
-    - php: nightly
 
 before_script:
   - composer selfupdate
