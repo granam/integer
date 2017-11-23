@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types of given parameters
+
 namespace Granam\Integer;
 
 use Granam\History\Partials\WithHistoryTrait;
@@ -15,7 +17,7 @@ trait IntegerWithHistoryTrait
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function __construct($value, $strict = true, $paranoid = false)
+    public function __construct($value, bool $strict = true, bool $paranoid = false)
     {
         parent::__construct($value, $strict, $paranoid);
         $this->noticeHistoryChangeFromOutside($this);

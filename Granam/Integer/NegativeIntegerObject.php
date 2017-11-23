@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types of given parameters
+
 namespace Granam\Integer;
 
 use Granam\Integer\Tools\ToInteger;
@@ -19,7 +21,7 @@ class NegativeIntegerObject extends NegativeNumberObject implements NegativeInte
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function __construct($value, $strict = true, $paranoid = false)
+    public function __construct($value, bool $strict = true, bool $paranoid = false)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         parent::__construct(ToInteger::toNegativeInteger($value, $strict, $paranoid));
