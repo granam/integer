@@ -1,10 +1,13 @@
 <?php
+declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types of given parameters
+
 namespace Granam\Integer\Tools;
 
 use Granam\Number\Tools\ToNumber;
+use Granam\Strict\Object\StrictObject;
 use Granam\Tools\ValueDescriber;
 
-class ToInteger
+class ToInteger extends StrictObject
 {
     /**
      * @param mixed $value
@@ -14,11 +17,11 @@ class ToInteger
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public static function toInteger($value, $strict = true, $paranoid = false)
+    public static function toInteger($value, bool $strict = true, bool $paranoid = false): int
     {
         $value = self::convertToNumber($value, $strict, $paranoid);
 
-        if (is_int($value)) {
+        if (\is_int($value)) {
             return (int)$value;
         }
 
@@ -29,14 +32,14 @@ class ToInteger
     }
 
     /**
-     * @param $value
+     * @param mixed $value
      * @param bool $strict
      * @param bool $paranoid
-     * @return int
+     * @return int|float
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    private static function convertToNumber($value, $strict, $paranoid)
+    private static function convertToNumber($value, bool $strict, bool $paranoid)
     {
         try {
             return ToNumber::toNumber($value, $strict, $paranoid);
@@ -51,10 +54,10 @@ class ToInteger
 
     /**
      * @param int $integerValue
-     * @param float $floatValue
+     * @param mixed $floatValue
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      */
-    private static function checkIfValueHasNotBeenLost($integerValue, $floatValue)
+    private static function checkIfValueHasNotBeenLost(int $integerValue, $floatValue): void
     {
         if ((float)$integerValue !== (float)$floatValue) { // some decimal value or integer overflow has been lost on cast to integer
             throw new Exceptions\WrongParameterType(
@@ -73,7 +76,7 @@ class ToInteger
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      * @throws \Granam\Integer\Tools\Exceptions\PositiveIntegerCanNotBeNegative
      */
-    public static function toPositiveInteger($value, $strict = true, $paranoid = false)
+    public static function toPositiveInteger($value, bool $strict = true, bool $paranoid = false): int
     {
         $integerValue = static::toInteger($value, $strict, $paranoid);
         if ($integerValue < 0) {
@@ -94,7 +97,7 @@ class ToInteger
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      * @throws \Granam\Integer\Tools\Exceptions\NegativeIntegerCanNotBePositive
      */
-    public static function toNegativeInteger($value, $strict = true, $paranoid = false)
+    public static function toNegativeInteger($value, bool $strict = true, bool $paranoid = false): int
     {
         $integerValue = static::toInteger($value, $strict, $paranoid);
         if ($integerValue > 0) {

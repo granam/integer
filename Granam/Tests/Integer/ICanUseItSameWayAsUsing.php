@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types of given parameters
+
 namespace Granam\Tests\Integer;
 
 use Granam\Tests\Tools\TestWithMockery;
@@ -19,16 +21,18 @@ abstract class ICanUseItSameWayAsUsing extends TestWithMockery
         $integerObjectReflection = new \ReflectionClass($integerClassToCompare);
         $integerConstructor = $integerObjectReflection->getConstructor()->getParameters();
         self::assertEquals(
-            $this->extractParametersDetails($toIntegerParameters),
-            $this->extractParametersDetails($integerConstructor)
+            $toIntegerDetails = $this->extractParametersDetails($toIntegerParameters),
+            $constructorDetails = $this->extractParametersDetails($integerConstructor),
+            'Method ' . self::getSutClass() . "::{$toIntegerMethod} si called differently than constructor of {$integerClassToCompare}"
         );
 
         $toPositiveIntegerParameters = $toIntegerClassReflection->getMethod('toPositiveInteger')->getParameters();
         $positiveIntegerObjectReflection = new \ReflectionClass(PositiveIntegerObject::class);
         $positiveIntegerConstructor = $positiveIntegerObjectReflection->getConstructor()->getParameters();
         self::assertEquals(
-            $this->extractParametersDetails($toPositiveIntegerParameters),
-            $this->extractParametersDetails($positiveIntegerConstructor)
+            $toIntegerDetails = $this->extractParametersDetails($toPositiveIntegerParameters),
+            $constructorDetails = $this->extractParametersDetails($positiveIntegerConstructor),
+            'Method ' . self::getSutClass() . '::toPositiveInteger() si called differently than constructor of ' . PositiveIntegerObject::class
         );
 
         $toNegativeIntegerParameters = $toIntegerClassReflection->getMethod('toNegativeInteger')->getParameters();
@@ -36,7 +40,8 @@ abstract class ICanUseItSameWayAsUsing extends TestWithMockery
         $positiveIntegerConstructor = $positiveIntegerObjectReflection->getConstructor()->getParameters();
         self::assertEquals(
             $this->extractParametersDetails($toNegativeIntegerParameters),
-            $this->extractParametersDetails($positiveIntegerConstructor)
+            $this->extractParametersDetails($positiveIntegerConstructor),
+            'Method ' . self::getSutClass() . '::toNegativeInteger() si called differently than constructor of ' . NegativeIntegerObject::class
         );
     }
 
@@ -50,12 +55,19 @@ abstract class ICanUseItSameWayAsUsing extends TestWithMockery
         foreach ($parameterReflections as $parameterReflection) {
             $extractedParameter = [];
             foreach (get_class_methods($parameterReflection) as $methodName) {
-                if (in_array($methodName, ['getName', 'isPassedByReference', 'canBePassedByValue', 'isArray',
+                if (\in_array($methodName, ['getName', 'isPassedByReference', 'canBePassedByValue', 'isArray',
                         'isCallable', 'allowsNull', 'getPosition', 'isOptional', 'isDefaultValueAvailable',
-                        'getDefaultValue', 'isVariadic'], true)
+                        'getDefaultValue', 'isVariadic', 'hasType', 'getType'], true)
                     && ($methodName !== 'getDefaultValue' || $parameterReflection->isDefaultValueAvailable())
                 ) {
-                    $extractedParameter[$methodName] = $parameterReflection->$methodName();
+                    try {
+                        $extractedParameter[$methodName] = $parameterReflection->$methodName();
+                    } catch (\ReflectionException $reflectionException) {
+                        self::fail(
+                            'A problem occurs when calling ' . $methodName . ' on a parameter reflection: '
+                            . $reflectionException->getMessage()
+                        );
+                    }
                 }
             }
             $extracted[] = $extractedParameter;
