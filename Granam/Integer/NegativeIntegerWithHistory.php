@@ -4,8 +4,8 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 namespace Granam\Integer;
 
 /**
- * @method NegativeIntegerWithHistory add(int | float | NumberInterface $value)
- * @method NegativeIntegerWithHistory sub(int | float | NumberInterface $value)
+ * @method NegativeIntegerWithHistory add(int | float | \Granam\Number\NumberInterface $value)
+ * @method NegativeIntegerWithHistory sub(int | float | \Granam\Number\NumberInterface $value)
  */
 class NegativeIntegerWithHistory extends NegativeIntegerObject
 {

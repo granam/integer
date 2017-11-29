@@ -7,12 +7,12 @@ use Granam\Tests\ExceptionsHierarchy\Exceptions\AbstractExceptionsHierarchyTest;
 
 class IntegerExceptionsHierarchyTest extends AbstractExceptionsHierarchyTest
 {
-    protected function getTestedNamespace()
+    protected function getTestedNamespace(): string
     {
         return str_replace('\Tests', '', __NAMESPACE__);
     }
 
-    protected function getRootNamespace()
+    protected function getRootNamespace(): string
     {
         $rootReflection = new \ReflectionClass(IntegerInterface::class);
 

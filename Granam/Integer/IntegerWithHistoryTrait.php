@@ -5,6 +5,7 @@ namespace Granam\Integer;
 
 use Granam\History\Partials\WithHistoryTrait;
 use Granam\Number\NumberInterface;
+use Granam\Number\NumberObject;
 
 trait IntegerWithHistoryTrait
 {
@@ -24,12 +25,12 @@ trait IntegerWithHistoryTrait
     }
 
     /**
-     * @param int|float|NumberInterface $value
-     * @return IntegerWithHistory
+     * @param int|float|string|NumberInterface $value
+     * @return IntegerWithHistory|NumberObject
      * @throws \Granam\Number\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    public function add($value)
+    public function add($value): NumberObject
     {
         /** @var IntegerWithHistory $added */
         $added = parent::add($value);
@@ -39,12 +40,12 @@ trait IntegerWithHistoryTrait
     }
 
     /**
-     * @param int|float|NumberInterface $value
-     * @return IntegerWithHistory
+     * @param int|float|string|NumberInterface $value
+     * @return IntegerWithHistory|NumberObject
      * @throws \Granam\Number\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    public function sub($value)
+    public function sub($value): NumberObject
     {
         /** @var IntegerWithHistory $subtracted */
         $subtracted = parent::sub($value);

@@ -7,8 +7,8 @@ use Granam\Integer\Tools\ToInteger;
 use Granam\Number\NegativeNumberObject;
 
 /**
- * @method IntegerWithHistory add(int|float|NumberInterface $value)
- * @method IntegerWithHistory sub(int|float|NumberInterface $value)
+ * @method IntegerWithHistory add(int|float|\Granam\Number\NumberInterface $value)
+ * @method IntegerWithHistory sub(int|float|\Granam\Number\NumberInterface $value)
  */
 class NegativeIntegerObject extends NegativeNumberObject implements NegativeInteger
 {
