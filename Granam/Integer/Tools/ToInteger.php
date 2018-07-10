@@ -11,6 +11,23 @@ class ToInteger extends StrictObject
 {
     /**
      * @param mixed $value
+     * @param bool $strict = true allows only explicit values, empty string and null (which remains null)
+     * @param bool $paranoid = false Throws exception if some value is lost on cast due to rounding on cast
+     * @return int|null
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
+     */
+    public static function toIntegerOrNull($value, bool $strict = true, bool $paranoid = false): ?int
+    {
+        if ($value === null) {
+            return null;
+        }
+
+        return static::toInteger($value, $strict, $paranoid);
+    }
+
+    /**
+     * @param mixed $value
      * @param bool $strict = true allows only explicit values, not null and empty string
      * @param bool $paranoid = false Throws exception if some value is lost on cast due to rounding on cast
      * @return int
@@ -69,6 +86,24 @@ class ToInteger extends StrictObject
 
     /**
      * @param mixed $value
+     * @param bool $strict = true allows only explicit values, empty string and null (which remains null)
+     * @param bool $paranoid = false Throws exception if some value is lost on cast due to rounding on cast
+     * @return int
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
+     * @throws \Granam\Integer\Tools\Exceptions\PositiveIntegerCanNotBeNegative
+     */
+    public static function toPositiveIntegerOrNull($value, bool $strict = true, bool $paranoid = false): ?int
+    {
+        if ($value === null) {
+            return null;
+        }
+
+        return static::toPositiveInteger($value, $strict, $paranoid);
+    }
+
+    /**
+     * @param mixed $value
      * @param bool $strict = true allows only explicit values, not null and empty string
      * @param bool $paranoid = false Throws exception if some value is lost on cast due to rounding on cast
      * @return int
@@ -81,11 +116,29 @@ class ToInteger extends StrictObject
         $integerValue = static::toInteger($value, $strict, $paranoid);
         if ($integerValue < 0) {
             throw new Exceptions\PositiveIntegerCanNotBeNegative(
-                'Expected zero or greater number, got ' . ValueDescriber::describe($value)
+                'Expected zero or greater, got ' . ValueDescriber::describe($value)
             );
         }
 
         return $integerValue;
+    }
+
+    /**
+     * @param mixed $value
+     * @param bool $strict = true allows only explicit values, empty string and null (which remains null)
+     * @param bool $paranoid = false Throws exception if some value is lost on cast due to rounding on cast
+     * @return int|null
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
+     * @throws \Granam\Integer\Tools\Exceptions\NegativeIntegerCanNotBePositive
+     */
+    public static function toNegativeIntegerOrNull($value, bool $strict = true, bool $paranoid = false): ?int
+    {
+        if ($value === null) {
+            return null;
+        }
+
+        return static::toNegativeInteger($value, $strict, $paranoid);
     }
 
     /**
@@ -99,13 +152,13 @@ class ToInteger extends StrictObject
      */
     public static function toNegativeInteger($value, bool $strict = true, bool $paranoid = false): int
     {
-        $integerValue = static::toInteger($value, $strict, $paranoid);
-        if ($integerValue > 0) {
+        $negativeInteger = static::toInteger($value, $strict, $paranoid);
+        if ($negativeInteger > 0) {
             throw new Exceptions\NegativeIntegerCanNotBePositive(
-                'Expected zero or lesser number, got ' . ValueDescriber::describe($value)
+                'Expected zero or lesser, got ' . ValueDescriber::describe($value)
             );
         }
 
-        return $integerValue;
+        return $negativeInteger;
     }
 }
