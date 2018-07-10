@@ -10,10 +10,12 @@ use Granam\Integer\NegativeIntegerObject;
 
 abstract class ICanUseItSameWayAsUsing extends TestWithMockery
 {
-    protected function I_can_create_it_same_way_as_using(
-        string $toIntegerMethod,
-        string $integerClassToCompare
-    ): void
+    /**
+     * @param string $toIntegerMethod
+     * @param string $integerClassToCompare
+     * @throws \ReflectionException
+     */
+    protected function I_can_create_it_same_way_as_using(string $toIntegerMethod, string $integerClassToCompare): void
     {
         $toIntegerClassReflection = new \ReflectionClass(ToInteger::class);
 
@@ -76,6 +78,11 @@ abstract class ICanUseItSameWayAsUsing extends TestWithMockery
         return $extracted;
     }
 
+    /**
+     * @param string $sutClass
+     * @param string $testedMethod
+     * @throws \ReflectionException
+     */
     protected function assertUsableWithJustValueParameter(string $sutClass, string $testedMethod): void
     {
         $classReflection = new \ReflectionClass($sutClass);
