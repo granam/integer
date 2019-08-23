@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace Granam\Tests\Integer;
 
 use PHPUnit\Framework\TestCase;
@@ -7,13 +8,17 @@ use Granam\Number\NumberInterface;
 
 class IntegerInterfaceTest extends TestCase
 {
-    /** @test */
+    /**
+     * @test
+    */
     public function interface_exists()
     {
         self::assertTrue(interface_exists(IntegerInterface::class));
     }
 
-    /** @test */
+    /**
+     * @test
+    */
     public function inherits_from_scalar_interface()
     {
         self::assertTrue(is_a(

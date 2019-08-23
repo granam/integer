@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace Granam\Tests\Integer;
 
 use Granam\Integer\IntegerObject;
@@ -8,7 +9,7 @@ class IntegerObjectTest extends ICanUseItSameWayAsUsing
 {
     /**
      * @test
-     */
+    */
     public function I_can_use_it_just_with_value_parameter()
     {
         $this->assertUsableWithJustValueParameter(IntegerObject::class, '__construct');
@@ -16,7 +17,7 @@ class IntegerObjectTest extends ICanUseItSameWayAsUsing
 
     /**
      * @test
-     */
+    */
     public function I_can_create_it_same_way_as_using_to_integer_conversion()
     {
         $this->I_can_create_it_same_way_as_using('toInteger', IntegerObject::class);
@@ -70,13 +71,13 @@ class IntegerObjectTest extends ICanUseItSameWayAsUsing
 
     /**
      * @test
-     * @expectedException \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @dataProvider provideStrictnessAndParanoia
      * @param bool $strict
      * @param bool $paranoid
      */
     public function I_cannot_use_float_with_decimal($strict, $paranoid)
     {
+        $this->expectException(\Granam\Integer\Tools\Exceptions\WrongParameterType::class);
         new IntegerObject(1.1, $strict, $paranoid);
     }
 
@@ -105,12 +106,12 @@ class IntegerObjectTest extends ICanUseItSameWayAsUsing
 
     /**
      * @test
-     * @expectedException \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @dataProvider provideEmptyValue
      * @param $value
      */
     public function I_can_not_use_empty_value_by_default($value)
     {
+        $this->expectException(\Granam\Integer\Tools\Exceptions\WrongParameterType::class);
         new IntegerObject($value);
     }
 
@@ -125,37 +126,37 @@ class IntegerObjectTest extends ICanUseItSameWayAsUsing
 
     /**
      * @test
-     * @expectedException \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @dataProvider provideStrictnessAndParanoia
      * @param bool $strict
      * @param bool $paranoid
      */
     public function I_cannot_use_array($strict, $paranoid)
     {
+        $this->expectException(\Granam\Integer\Tools\Exceptions\WrongParameterType::class);
         new IntegerObject([], $strict, $paranoid);
     }
 
     /**
      * @test
-     * @expectedException \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @dataProvider provideStrictnessAndParanoia
      * @param bool $strict
      * @param bool $paranoid
      */
     public function I_cannot_use_resource($strict, $paranoid)
     {
+        $this->expectException(\Granam\Integer\Tools\Exceptions\WrongParameterType::class);
         new IntegerObject(tmpfile(), $strict, $paranoid);
     }
 
     /**
      * @test
-     * @expectedException \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @dataProvider provideStrictnessAndParanoia
      * @param bool $strict
      * @param bool $paranoid
      */
     public function I_cannot_use_object_without_to_string($strict, $paranoid)
     {
+        $this->expectException(\Granam\Integer\Tools\Exceptions\WrongParameterType::class);
         new IntegerObject(new \stdClass(), $strict, $paranoid);
     }
 
@@ -179,7 +180,7 @@ class IntegerObjectTest extends ICanUseItSameWayAsUsing
 
     /**
      * @test
-     */
+    */
     public function I_can_use_to_string_object_without_number_as_integer_zero_if_not_strict()
     {
         $integer = new IntegerObject(new TestWithToString($string = 'non-integer'), false /* not strict */);
@@ -189,10 +190,10 @@ class IntegerObjectTest extends ICanUseItSameWayAsUsing
 
     /**
      * @test
-     * @expectedException \Granam\Integer\Tools\Exceptions\WrongParameterType
      */
     public function I_can_not_use_non_numeric_value_by_default()
     {
+        $this->expectException(\Granam\Integer\Tools\Exceptions\WrongParameterType::class);
         new IntegerObject('one');
     }
 
@@ -214,7 +215,7 @@ class IntegerObjectTest extends ICanUseItSameWayAsUsing
 
     /**
      * @test
-     */
+    */
     public function I_can_use_value_with_non_numeric_trash_if_not_strict()
     {
         $integer = new IntegerObject($wrappedWithTrash = '   000123   foo bar', false /* not strict */);
@@ -224,30 +225,30 @@ class IntegerObjectTest extends ICanUseItSameWayAsUsing
 
     /**
      * @test
-     * @expectedException \Granam\Integer\Tools\Exceptions\WrongParameterType
      */
     public function I_can_not_use_value_with_non_numeric_trash_by_default()
     {
+        $this->expectException(\Granam\Integer\Tools\Exceptions\WrongParameterType::class);
         new IntegerObject('   000123   foo bar');
     }
 
     /**
      * @test
-     * @expectedException \Granam\Integer\Tools\Exceptions\WrongParameterType
      */
     public function I_cannot_use_string_number_greater_than_int_max()
     {
+        $this->expectException(\Granam\Integer\Tools\Exceptions\WrongParameterType::class);
         new IntegerObject(PHP_INT_MAX . '123');
     }
 
     /**
      * @test
-     * @expectedException \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      * @dataProvider provideStrictness
      * @param bool $strict
      */
     public function I_can_force_exception_throw_for_rounding($strict)
     {
+        $this->expectException(\Granam\Integer\Tools\Exceptions\ValueLostOnCast::class);
         $value = '123.999999999999999999';
         try {
             $silentlyRounded = new IntegerObject($value);

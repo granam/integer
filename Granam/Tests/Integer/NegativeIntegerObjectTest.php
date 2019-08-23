@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace Granam\Tests\Integer;
 
 use Granam\Integer\NegativeInteger;
@@ -9,7 +10,7 @@ class NegativeIntegerObjectTest extends ICanUseItSameWayAsUsing
 {
     /**
      * @test
-     */
+    */
     public function I_can_use_it()
     {
         $zeroNegativeInteger = new NegativeIntegerObject(0);
@@ -25,7 +26,7 @@ class NegativeIntegerObjectTest extends ICanUseItSameWayAsUsing
 
     /**
      * @test
-     */
+    */
     public function I_can_create_it_with_zero()
     {
         $zeroNegativeInteger = new NegativeIntegerObject(0);
@@ -34,17 +35,17 @@ class NegativeIntegerObjectTest extends ICanUseItSameWayAsUsing
 
     /**
      * @test
-     * @expectedException \Granam\Integer\Tools\Exceptions\NegativeIntegerCanNotBePositive
-     * @expectedExceptionMessageRegExp ~\s1~
      */
     public function I_can_not_create_it_positive()
     {
+        $this->expectException(\Granam\Integer\Tools\Exceptions\NegativeIntegerCanNotBePositive::class);
+        $this->expectExceptionMessageRegExp('~\s1~');
         new NegativeIntegerObject(1);
     }
 
     /**
      * @test
-     */
+    */
     public function I_can_use_it_just_with_value_parameter()
     {
         $this->assertUsableWithJustValueParameter(NegativeIntegerObject::class, '__construct');
@@ -52,7 +53,7 @@ class NegativeIntegerObjectTest extends ICanUseItSameWayAsUsing
 
     /**
      * @test
-     */
+    */
     public function I_can_create_it_same_way_as_to_negative_integer_conversion()
     {
         $this->I_can_create_it_same_way_as_using('toNegativeInteger', NegativeIntegerObject::class);
