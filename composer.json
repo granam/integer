@@ -35,7 +35,6 @@
     "mockery/mockery": "^1.2",
     "granam/exceptions-hierarchy": "^5.0",
     "phpunit/phpunit": "^9.0",
-    "granam/test-with-mockery": "^2.0",
-    "rector/rector": "^0.10.3"
+    "granam/test-with-mockery": "^2.0"
   }
 }
